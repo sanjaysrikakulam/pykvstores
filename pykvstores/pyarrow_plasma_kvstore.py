@@ -110,9 +110,9 @@ class PyArrowPlasmaKVStore:
         object_id = self.gen_object_id(key)
 
         # Get the value from the plasma object store
-        try:
+        if self.client.contains(object_id):
             return self.client.get(object_id)[1]
-        except plasma.PlasmaObjectNotFound:
+        else:
             return None
 
     @check_connected
